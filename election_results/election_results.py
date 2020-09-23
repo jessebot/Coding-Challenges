@@ -64,23 +64,29 @@ def process_csv_file(results_file=""):
 
 def print_result(results_dict):
     total_votes_in_election = 0
+    total_votes_per_constituency = {}
     # print a nice seperater
     for constituency, party_votes in results_dict.items():
-        print("Results".center(80, "*"))
+        print(f"Results for {constituency}".center(80, "*"))
         total_constituency_votes = 0
         # print the name of the person
-        print(constituency)
         for party, votes in party_votes.items():
             total_constituency_votes += votes
             # print party and number of votes
-            print(f"{party}: {votes}")
+            print(f"{party} votes: {votes}")
 
         print(f"Total votes for {constituency}: {total_constituency_votes}")
+        total_votes_per_constituency[constituency] = total_constituency_votes
         total_votes_in_election += total_constituency_votes
 
     print("Final Results".center(80, "*"))
     print(f"Total votes in election: {total_votes_in_election}")
-
+    print(f"Percentages of total votes, by constituency:")
+    for constituency, total_votes in total_votes_per_constituency.items():
+        percentage_dec = total_votes / total_votes_in_election
+        percentage_of_total = percentage_dec * 100
+        percentage_of_total_int = int(percentage_of_total)
+        print(f"{constituency}: {percentage_of_total_int}%")
 
 if __name__ == '__main__':
     parsed_csv_dict = process_csv_file("test_file.csv")
