@@ -4,8 +4,9 @@
 
 def process_csv_file(results_file=""):
     """
-    processes given CSV file, string
+    processes given CSV file, return nicer list of dicts
     """
+    final_dict = {}
 
     party_codes = {"C": "Conservative Party",
                    "L": "Labour Party",
@@ -51,13 +52,36 @@ def process_csv_file(results_file=""):
                     except:
                         raise Exception("Not a valid party code!")
 
-            # print a nice seperater
-            print("Results".center(80, "*"))
-            # print the name of the person
-            print(constituency)
-            # print party and number of votes
+            pretty_parties_dict = {}
+
             for key, value in party_votes.items():
-                print(f"{party_codes[key]}: {value}")
+                pretty_parties_dict[party_codes[key]] = value
+
+            final_dict[constituency] = pretty_parties_dict
+
+    return final_dict
 
 
-process_csv_file("test_file.csv")
+def print_result(results_dict):
+    total_votes_in_election = 0
+    # print a nice seperater
+    for constituency, party_votes in results_dict.items():
+        print("Results".center(80, "*"))
+        total_constituency_votes = 0
+        # print the name of the person
+        print(constituency)
+        for party, votes in party_votes.items():
+            total_constituency_votes += votes
+            # print party and number of votes
+            print(f"{party}: {votes}")
+
+        print(f"Total votes for {constituency}: {total_constituency_votes}")
+        total_votes_in_election += total_constituency_votes
+
+    print("Final Results".center(80, "*"))
+    print(f"Total votes in election: {total_votes_in_election}")
+
+
+if __name__ == '__main__':
+    parsed_csv_dict = process_csv_file("test_file.csv")
+    print_result(parsed_csv_dict)

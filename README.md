@@ -1,2 +1,1 @@
-Coding Challenge as per:
-https://github.com/guardian/coding-exercises/tree/main/election-results
+This is just a list of various coding challenges I do, for interviews and to stay sharp
