@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# an interview challenge
+# an interview challenge given to Jesse Hitch on 9/23/20
 
 
 def process_csv_file(results_file=""):
     """
-    processes given CSV file, return nicer list of dicts
+    processes given CSV file, return nicer dict of dicts
     """
     final_dict = {}
 
@@ -63,6 +63,9 @@ def process_csv_file(results_file=""):
 
 
 def print_result(results_dict):
+    """
+    prints election results to stdout with given results dictionary
+    """
     total_votes_in_election = 0
     total_votes_per_constituency = {}
     # print a nice seperater
